@@ -1,0 +1,10 @@
+{
+  "name": "Behat tests for GENERATOR_SHOOV_BASE_URL",
+  "description": "Functional testing for GENERATOR_SHOOV_BASE_URL site.",
+  "require": {
+    "drupal/drupal-extension": "~3.0"
+  },
+  "config": {
+    "bin-dir": "bin/"
+  }
+}
