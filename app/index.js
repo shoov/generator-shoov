@@ -36,7 +36,7 @@ module.exports = yeoman.generators.Base.extend({
           return;
         }
 
-        var fileName = file.replace(self.templatePath('/'), '');
+        var fileName = file.replace(self.templatePath(), '');
 
         var dir = path.dirname(fileName);
         var baseName = path.basename(fileName);
@@ -47,9 +47,9 @@ module.exports = yeoman.generators.Base.extend({
           baseName = baseName.replace(/^_/g, '.');
         }
 
-        var newFileName = dir ? dir + '/' + baseName : baseName;
+        var newFileName = dir != '/' ? dir.replace('/', '') + '/' + baseName : baseName;
 
-        self.fs.copy(self.templatePath(fileName), self.destinationPath(newFileName));
+        self.fs.copy(file, self.destinationPath(newFileName));
       });
     }
   },
