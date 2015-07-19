@@ -13,14 +13,46 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
   },
 
+  addOptions: function() {
+    // Try to get value from the CLI.
+    this.option('base-url', {
+      desc: 'The base url of the site to visually monitor',
+      type: String,
+      required: 'true'
+    });
+  },
+
+  askForBaseUrl: function () {
+    // Have Yeoman greet the user.
+    this.log(yosay(
+      'Welcome to the ' + chalk.red('Shoov') + ' generator!'
+    ));
+
+    if (this.options['base-url']) {
+      // Get the value from the CLI.
+      this.baseUrl = this.options['base-url'];
+      this.log('Setting base url to: ' + this.baseUrl);
+      return;
+    }
+
+    var done = this.async();
+
+    var prompts = [{
+      name: 'baseUrl',
+      message: 'What is the The base url of the site to visually monitor?',
+      default: 'http://shoov.io'
+    }];
+
+    this.prompt(prompts, function (props) {
+      this.baseUrl = props.baseUrl;
+
+      done();
+    }.bind(this));
+  },
+
   writing: {
     app: function() {
       var self = this;
-
-      // Have Yeoman greet the user.
-      this.log(yosay(
-        'Welcome to the ' + chalk.red('Shoov') + ' generator!'
-      ));
 
       var files  = glob.sync(self.templatePath() + '/**/*');
 
@@ -43,7 +75,16 @@ module.exports = yeoman.generators.Base.extend({
 
         var newFileName = dir != '/' ? dir.replace('/', '') + '/' + baseName : baseName;
 
-        self.fs.copy(file, self.destinationPath(newFileName));
+        if (extension === '.png' || extension === '.jpg') {
+          self.fs.copy(self.templatePath(fileName), self.destinationPath(newFileName));
+        }
+        else {
+          var contents = self.fs.read(self.templatePath(fileName));
+          var newContents = contents
+            .replace(/GENERATOR_SHOOV_BASE_URL/g, self.baseUrl);
+
+          self.fs.write(newFileName, newContents);
+        }
       });
     },
 

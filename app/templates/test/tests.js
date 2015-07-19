@@ -28,7 +28,7 @@ var caps = selectedCaps ? capsConfig[selectedCaps] : undefined;
 var providerPrefix = process.env.PROVIDER_PREFIX ? process.env.PROVIDER_PREFIX + '-' : '';
 var testName = selectedCaps ? providerPrefix + selectedCaps : providerPrefix + 'default';
 
-var baseUrl = process.env.BASE_URL ? process.env.BASE_URL : 'https://www.drupal.org';
+var baseUrl = process.env.BASE_URL ? process.env.BASE_URL : 'GENERATOR_SHOOV_BASE_URL';
 
 describe('Visual monitor testing', function() {
 
@@ -47,36 +47,11 @@ describe('Visual monitor testing', function() {
     client
       .url(baseUrl)
       .webdrivercss(testName + '.homepage', {
-        name: 'homepage',
-        exclude:
-          [
-            // News block.
-            '#tab-news',
-            // Community stats.
-            '#community-stats .highlight',
-            // Who uses Drupal.
-            '#sites-with-drupal img'
-          ],
-        remove:
-          [
-            // Who uses Drupal text
-            '#sites-with-drupal p a'
-          ],
-        screenWidth: selectedCaps == 'chrome' ? [320, 640, 960, 1200] : undefined,
-      }, shoovWebdrivercss.processResults)
-      .call(done);
-  });
-
-  it('should show start page',function(done) {
-    client
-      .url(baseUrl + '/start')
-      .webdrivercss(testName + '.start', {
-        name: 'start',
-        exclude:
-          [
-            '.narrow-box ul.flat',
-            '.get-started.documentation img'
-          ],
+        name: '1',
+        // Allow excluding (i.e. adding black rectangle) element.
+        exclude: [],
+        // Completely remove (i.e. display: none) elements
+        remove: [],
         screenWidth: selectedCaps == 'chrome' ? [320, 640, 960, 1200] : undefined,
       }, shoovWebdrivercss.processResults)
       .call(done);
