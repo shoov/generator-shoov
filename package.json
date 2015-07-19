@@ -1,0 +1,26 @@
+{
+  "name": "generator-shoov",
+  "version": "0.1.0",
+  "description": "Shoov visual regression.",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "shoov/generator-shoov",
+  "author": {
+    "name": "Gizra",
+    "email": "info@gizra.com",
+    "url": "https://github.com/Gizra"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "Visual regression"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.18.0"
+  }
+}
