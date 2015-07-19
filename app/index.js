@@ -13,32 +13,14 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
   },
 
-  prompting: function () {
-    var done = this.async();
-
-    var self = this;
-
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the ' + chalk.red('Shoov') + ' generator!'
-    ));
-
-    var shoovConfigExists = false;
-    tilde('~/', function(s) {
-      if (!fs.existsSync(path.resolve(s, '.shoov.json'))) {
-        self.log(chalk.red('.shoov.json is missing from your home directory. Get it under "My-Account" in Shoov.'));
-        opn('https://app.shoov.io/#/my-account');
-        // Break the installation.
-        return;
-      }
-    });
-
-    done();
-  },
-
   writing: {
     app: function() {
       var self = this;
+
+      // Have Yeoman greet the user.
+      this.log(yosay(
+        'Welcome to the ' + chalk.red('Shoov') + ' generator!'
+      ));
 
       var files  = glob.sync(self.templatePath() + '/**/*');
 
@@ -63,6 +45,25 @@ module.exports = yeoman.generators.Base.extend({
 
         self.fs.copy(file, self.destinationPath(newFileName));
       });
+    },
+
+    shoovConfigExists: function () {
+      var done = this.async();
+
+      var self = this;
+
+      tilde('~/', function(s) {
+        if (!fs.existsSync(path.resolve(s, '.shoov.json'))) {
+          self.log(chalk.red('---------------------------'));
+          self.log(chalk.red('Shoov\'s config file (~/.shoov.json) is missing from your home directory.'));
+          self.log(chalk.red('Get it by following the instructions in:'));
+          self.log(chalk.yellow('  https://app.shoov.io/#/my-account'));
+          self.log(chalk.red('---------------------------'));
+          opn('https://app.shoov.io/#/my-account');
+        }
+      });
+
+      done();
     }
   },
 
