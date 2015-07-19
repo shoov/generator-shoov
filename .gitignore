@@ -37,6 +37,10 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
+# Node modules #
+################
+node_modules
+
 # IDE #
 ##########
 .project

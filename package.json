@@ -21,6 +21,10 @@
     "Visual regression"
   ],
   "dependencies": {
+    "chalk": "^0.5.0",
+    "glob": "^4.3.2",
+    "fs-extra": "^0.13.0",
+    "yosay": "^0.3.0",
     "yeoman-generator": "^0.18.0"
   }
 }
