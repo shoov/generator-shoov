@@ -1,5 +1,7 @@
-# generator-shoov
-Yeoman generator to quickly Shoovify a repository
+# generator-shoov [![Build Status](https://travis-ci.org/shoov/generator-shoov.svg?branch=master)](https://travis-ci.org/shoov/generator-shoov)
+
+
+> Yeoman generator to quickly Shoovify a repository
 
 ## Getting Started
 
