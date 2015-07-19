@@ -66,7 +66,7 @@ module.exports = yeoman.generators.Base.extend({
       }
 
       this.log('npm install');
-      this.npmInstall(null);
+      this.npmInstall(null, {cwd: 'visual-monitor'});
     }
   }
 });
