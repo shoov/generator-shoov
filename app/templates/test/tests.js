@@ -30,7 +30,7 @@ var testName = selectedCaps ? providerPrefix + selectedCaps : providerPrefix + '
 
 var baseUrl = process.env.BASE_URL ? process.env.BASE_URL : 'https://www.drupal.org';
 
-describe('Drupal.org live site testing', function() {
+describe('Visual monitor testing', function() {
 
   this.timeout(99999999);
   var client = {};
