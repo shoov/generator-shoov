@@ -11,14 +11,22 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
   },
 
+  prompting: function () {
+    var done = this.async();
+
+    var self = this;
+
+    // Have Yeoman greet the user.
+    self.log(yosay(
+      'Welcome to the ' + chalk.red('Shoov') + ' generator!'
+    ));
+
+    done();
+  },
+
   writing: {
     app: function() {
       var self = this;
-
-      // Have Yeoman greet the user.
-      self.log(yosay(
-        'Welcome to the ' + chalk.red('Shoov') + ' generator!'
-      ));
 
       var files  = glob.sync(self.templatePath() + '/**/*');
 
@@ -32,11 +40,33 @@ module.exports = yeoman.generators.Base.extend({
 
         var dir = path.dirname(fileName);
         var baseName = path.basename(fileName);
+        var extension = path.extname(baseName);
+
+        if (extension !== '.scss') {
+          // If not a SCSS file, convert the prefix of the underscore to a dot.
+          baseName = baseName.replace(/^_/g, '.');
+        }
 
         var newFileName = dir ? dir + '/' + baseName : baseName;
 
         self.fs.copy(self.templatePath(fileName), self.destinationPath(newFileName));
       });
+    }
+  },
+
+  install: {
+
+    /**
+     * Install npm.
+     */
+    client: function() {
+      if (this.options['skip-install']) {
+        this.log('Skipping install');
+        return;
+      }
+
+      this.log('npm install');
+      this.npmInstall(null);
     }
   }
 });
