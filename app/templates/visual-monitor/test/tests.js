@@ -28,7 +28,7 @@ var caps = selectedCaps ? capsConfig[selectedCaps] : undefined;
 var providerPrefix = process.env.PROVIDER_PREFIX ? process.env.PROVIDER_PREFIX + '-' : '';
 var testName = selectedCaps ? providerPrefix + selectedCaps : providerPrefix + 'default';
 
-var baseUrl = process.env.BASE_URL ? process.env.BASE_URL : 'https://www.drupal.org';
+var baseUrl = process.env.BASE_URL ? process.env.BASE_URL : 'GENERATOR_SHOOV_BASE_URL';
 
 describe('Visual monitor testing', function() {
 
