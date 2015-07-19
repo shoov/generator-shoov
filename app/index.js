@@ -106,6 +106,24 @@ module.exports = yeoman.generators.Base.extend({
       });
 
       done();
+    },
+
+    explain: function() {
+      this.log(chalk.green('---------------------------'));
+
+      this.log(chalk.green('Execute tests:'));
+      this.log(chalk.green('1) With PhantomJs'));
+      this.log(chalk.green('  $ phantomjs --webdriver=4444 &'));
+      this.log(chalk.green('  $ cd visual-monitor'));
+      this.log(chalk.green('  $ mocha'));
+
+
+      this.log(chalk.green('2) With BrowserStack or SauceLabs'));
+      this.log(chalk.gray ('  Important: Add your provider credentials in Shoov\'s My-Account page.'));
+      this.log(chalk.green('  $ cd visual-monitor'));
+      this.log(chalk.green('  $ PROVIDER_PREFIX=browserstack SELECTED_CAPS=chrome mocha'));
+
+      this.log(chalk.green('---------------------------'));
     }
   },
 
