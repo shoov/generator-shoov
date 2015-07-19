@@ -139,10 +139,27 @@ module.exports = yeoman.generators.Base.extend({
       }
 
       this.log('npm install');
-      this.npmInstall(null, {cwd: 'visual-monitor'});
+      var npmInstall = this.npmInstall(null, {cwd: 'visual-monitor'});
 
       this.log('Composer install');
-      this.spawnCommand('composer', ['install'], {cwd: './behat'});      
+      var composerInstall = this.spawnCommand('composer', ['install'], {cwd: './behat'});
+
+      npmInstall.on('close', function (code) {
+        if (!code) {
+          // Installation was successful.
+          self.spawnCommand('tar', ['cfz', 'node_modules.tar.gz', './node_modules'], {cwd: './visual-monitor'})
+        }
+      });
+
+      var self = this;
+
+      composerInstall.on('close', function (code) {
+        if (!code) {
+          // Installation was successful.
+          self.spawnCommand('tar', ['cfz', 'vendor_bin.tar.gz', './vendor', './bin'], {cwd: './behat'})
+        }
+      });
+
     }
   }
 });
