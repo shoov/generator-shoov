@@ -138,6 +138,8 @@ module.exports = yeoman.generators.Base.extend({
         return;
       }
 
+      var self = this;
+
       this.log('npm install');
       var npmInstall = this.npmInstall(null, {cwd: 'visual-monitor'});
 
@@ -150,8 +152,6 @@ module.exports = yeoman.generators.Base.extend({
           self.spawnCommand('tar', ['cfz', 'node_modules.tar.gz', './node_modules'], {cwd: './visual-monitor'})
         }
       });
-
-      var self = this;
 
       composerInstall.on('close', function (code) {
         if (!code) {
