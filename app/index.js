@@ -5,6 +5,8 @@ var glob = require('glob');
 var fs = require('fs-extra');
 var path = require('path');
 var yosay = require('yosay');
+var tilde = require('tilde-expansion');
+var opn = require('opn');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -20,6 +22,19 @@ module.exports = yeoman.generators.Base.extend({
     self.log(yosay(
       'Welcome to the ' + chalk.red('Shoov') + ' generator!'
     ));
+
+    var shoovExists = false;
+    tilde('~/', function(s) {
+      shoovExists = fs.existsSync(path.resolve(s, '.shoov.json'));
+    });
+
+    if (!shoovExists) {
+      self.log(
+        chalk.red('Error: Please create your ~/.shoov.json file')
+      );
+      opn('https://app.shoov.io/#/my-account');
+      return;
+    }
 
     done();
   },
