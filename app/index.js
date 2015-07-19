@@ -19,22 +19,19 @@ module.exports = yeoman.generators.Base.extend({
     var self = this;
 
     // Have Yeoman greet the user.
-    self.log(yosay(
+    this.log(yosay(
       'Welcome to the ' + chalk.red('Shoov') + ' generator!'
     ));
 
-    var shoovExists = false;
+    var shoovConfigExists = false;
     tilde('~/', function(s) {
-      shoovExists = fs.existsSync(path.resolve(s, '.shoov.json'));
+      if (!fs.existsSync(path.resolve(s, '.shoov.json'))) {
+        self.log(chalk.red('.shoov.json is missing from your home directory. Get it under "My-Account" in Shoov.'));
+        opn('https://app.shoov.io/#/my-account');
+        // Break the installation.
+        return;
+      }
     });
-
-    if (!shoovExists) {
-      self.log(
-        chalk.red('Error: Please create your ~/.shoov.json file')
-      );
-      opn('https://app.shoov.io/#/my-account');
-      return;
-    }
 
     done();
   },
@@ -81,7 +78,7 @@ module.exports = yeoman.generators.Base.extend({
       }
 
       this.log('npm install');
-      this.npmInstall(null);
+      this.npmInstall(null, {cwd: 'visual-monitor'});
     }
   }
 });
