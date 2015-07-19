@@ -140,6 +140,9 @@ module.exports = yeoman.generators.Base.extend({
 
       this.log('npm install');
       this.npmInstall(null, {cwd: 'visual-monitor'});
+
+      this.log('Composer install');
+      this.spawnCommand('composer', ['install'], {cwd: './behat'});      
     }
   }
 });
