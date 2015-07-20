@@ -114,32 +114,32 @@ module.exports = yeoman.generators.Base.extend({
 
       var self = this;
 
-      if (process.platform == 'darwin') {
-        var graphicsmagickInstalled = false;
-        var graphicsmagickInfo = spawn('brew', ['info', 'graphicsmagick']);
-
-        graphicsmagickInfo.stdout.on('data', function (data) {
-          var buff = new Buffer(data);
-          graphicsmagickInstalled = graphicsmagickInstalled || buff.toString('utf8').indexOf('/usr/local/Cellar/graphicsmagick') > -1;
-        });
-
-        graphicsmagickInfo.on('close', function (code) {
-
-          if (!code && !graphicsmagickInstalled) {
-            self.log(chalk.red('---------------------------'));
-            self.log(chalk.red('GraphicsMagick for image processing is not installed on your machine'));
-            self.log(chalk.red('To install this package follow the instructions in:'));
-            self.log(chalk.yellow('  https://github.com/webdriverio/webdrivercss#install'));
-            self.log(chalk.red('---------------------------'));
-            opn('https://github.com/webdriverio/webdrivercss#install');
-          }
-
-          done();
-        });
-      }
-      else {
+      if (process.platform != 'darwin') {
+        // Only Check 'graphicsmagick' on Mac OS.
         done();
       }
+
+      var graphicsmagickInstalled = false;
+      var graphicsmagickInfo = spawn('brew', ['info', 'graphicsmagick']);
+
+      graphicsmagickInfo.stdout.on('data', function (data) {
+        var buff = new Buffer(data);
+        graphicsmagickInstalled = graphicsmagickInstalled || buff.toString('utf8').indexOf('/usr/local/Cellar/graphicsmagick') > -1;
+      });
+
+      graphicsmagickInfo.on('close', function (code) {
+
+        if (!code && !graphicsmagickInstalled) {
+          self.log(chalk.red('---------------------------'));
+          self.log(chalk.red('GraphicsMagick for image processing is not installed on your machine'));
+          self.log(chalk.red('To install this package follow the instructions in:'));
+          self.log(chalk.yellow('  https://github.com/webdriverio/webdrivercss#install'));
+          self.log(chalk.red('---------------------------'));
+          opn('https://github.com/webdriverio/webdrivercss#install');
+        }
+
+        done();
+      });
 
     },
 
