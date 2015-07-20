@@ -113,16 +113,16 @@ module.exports = yeoman.generators.Base.extend({
       var done = this.async();
 
       var self = this;
-      var brewInfo = spawn('brew', ['info', 'graphicsmagick']);
+
       var graphicsmagickInstalled = false;
+      var graphicsmagickInfo = process.platform == 'darwin' ? spawn('brew', ['info', 'graphicsmagick']) : spawn('GraphicsMagick-config', ['--version']);
 
-
-      brewInfo.stdout.on('data', function (data) {
+      graphicsmagickInfo.stdout.on('data', function (data) {
         var buff = new Buffer(data);
         graphicsmagickInstalled = graphicsmagickInstalled || buff.toString('utf8').indexOf('/usr/local/Cellar/graphicsmagick') > -1;
       });
 
-      brewInfo.on('close', function (code) {
+      graphicsmagickInfo.on('close', function (code) {
 
         if (!code && !graphicsmagickInstalled) {
           self.log(chalk.red('---------------------------'));
