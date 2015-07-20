@@ -130,9 +130,9 @@ module.exports = yeoman.generators.Base.extend({
             self.log(chalk.red('---------------------------'));
             self.log(chalk.red('GraphicsMagick for image processing is not installed on your machine'));
             self.log(chalk.red('To install this package follow the instructions in:'));
-            self.log(chalk.yellow('  https://github.com/webdriverio/webdrivercss#install'));
+            self.log(chalk.yellow('  https://github.com/webdriverio/webdrivercss#mac-os-x-using-homebrew'));
             self.log(chalk.red('---------------------------'));
-            opn('https://github.com/webdriverio/webdrivercss#install');
+            opn('https://github.com/webdriverio/webdrivercss#mac-os-x-using-homebrew');
           }
 
           done();
