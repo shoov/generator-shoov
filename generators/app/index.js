@@ -115,7 +115,7 @@ module.exports = yeoman.generators.Base.extend({
       var self = this;
 
       var graphicsmagickInstalled = false;
-      var graphicsmagickInfo = process.platform == 'darwin' ? spawn('brew', ['info', 'graphicsmagick']) : spawn('GraphicsMagick-config', ['--version']);
+      var graphicsmagickInfo = spawn('brew', ['info', 'graphicsmagick']);
 
       graphicsmagickInfo.stdout.on('data', function (data) {
         var buff = new Buffer(data);
