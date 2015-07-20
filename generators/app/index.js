@@ -6,6 +6,7 @@ var fs = require('fs-extra');
 var path = require('path');
 var yosay = require('yosay');
 var tilde = require('tilde-expansion');
+var spawn = require('child_process').spawn;
 var opn = require('opn');
 
 module.exports = yeoman.generators.Base.extend({
@@ -106,6 +107,35 @@ module.exports = yeoman.generators.Base.extend({
       });
 
       done();
+    },
+
+    graphicsmagickExists: function () {
+      var done = this.async();
+
+      var self = this;
+      var brewInfo = spawn('brew', ['info', 'graphicsmagick']);
+      var graphicsmagickInstalled = false;
+
+
+      brewInfo.stdout.on('data', function (data) {
+        var buff = new Buffer(data);
+        graphicsmagickInstalled = graphicsmagickInstalled || buff.toString('utf8').indexOf('/usr/local/Cellar/graphicsmagick') > -1;
+      });
+
+      brewInfo.on('close', function (code) {
+
+        if (!code && !graphicsmagickInstalled) {
+          self.log(chalk.red('---------------------------'));
+          self.log(chalk.red('GraphicsMagick for image processing is not installed on your machine'));
+          self.log(chalk.red('To install this package follow the instructions in:'));
+          self.log(chalk.yellow('  https://github.com/webdriverio/webdrivercss#install'));
+          self.log(chalk.red('---------------------------'));
+          opn('https://github.com/webdriverio/webdrivercss#install');
+        }
+
+        done();
+      });
+
     },
 
     explain: function() {
