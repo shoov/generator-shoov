@@ -8,6 +8,7 @@
 ### Prerequisites
 
 * Yo (``npm install -g yo``)
+* [Composer](https://getcomposer.org/doc/00-intro.md#globally) installed globally, for Behat dependencies to be setup
 
 ### Installation
 
