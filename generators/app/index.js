@@ -182,16 +182,15 @@ module.exports = yeoman.generators.Base.extend({
       var composerInstall = this.spawnCommand('composer', ['install'], {cwd: './behat'});
 
       npmInstall.on('close', function (code) {
-        if (!code) {
-          // Installation was successful.
-          self.spawnCommand('tar', ['cfz', 'node_modules.tar.gz', './node_modules'], {cwd: './visual-monitor'})
+        if (code) {
+          self.log(chalk.red('"npm install" could not be executed.'));
         }
       });
 
       composerInstall.on('close', function (code) {
-        if (!code) {
+        if (code) {
           // Installation was successful.
-          self.spawnCommand('tar', ['cfz', 'vendor_bin.tar.gz', './vendor', './bin'], {cwd: './behat'})
+          self.log(chalk.red('"composer install" could not be executed.'));
         }
       });
 
