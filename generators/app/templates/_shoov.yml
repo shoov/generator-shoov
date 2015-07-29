@@ -1,15 +1,17 @@
 before_script:
-  # Instead of npm/ composer install, we save time by using a gzipped file.
-  - cd visual-monitor
-  - tar -zxf node_modules.tar.gz
-  - cd ../behat
+  - cd ./visual-monitor
+  - npm install
+  - cd ..
+
+  - cd ./behat
   - cp behat.local.yml.example behat.local.yml
-  - tar -zxf vendor_bin.tar.gz
+  - composer install
   - cd ..
 
 script:
-  - cd visual-monitor
+  - cd ./visual-monitor
   - PROVIDER_PREFIX=browserstack SELECTED_CAPS=chrome mocha
+  - cd ..
 
-  - cd ../behat
+  - cd ./behat
   - ./bin/behat --tags=~wip
