@@ -4,6 +4,7 @@ before_script:
   - cd ..
 
   - cd ./behat
+  - cp behat.local.yml.example behat.local.yml
   - composer install
   - cd ..
 
