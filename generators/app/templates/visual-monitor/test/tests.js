@@ -43,6 +43,8 @@ var testName = selectedCaps ? providerPrefix + selectedCaps : providerPrefix + '
 
 var baseUrl = process.env.BASE_URL ? process.env.BASE_URL : 'GENERATOR_SHOOV_BASE_URL';
 
+var resultsCallback = process.env.DEBUG ? console.log : shoovWebdrivercss.processResults;
+
 describe('Visual monitor testing', function() {
 
   this.timeout(99999999);
@@ -64,7 +66,7 @@ describe('Visual monitor testing', function() {
         exclude: [],
         remove: [],
         screenWidth: selectedCaps == 'chrome' ? [640, 960, 1200] : undefined,
-      }, shoovWebdrivercss.processResults)
+      }, resultsCallback)
       .call(done);
   });
 });
