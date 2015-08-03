@@ -28,6 +28,14 @@ PROVIDER_PREFIX=browserstack SELECTED_CAPS=chrome mocha
 mocha
 ```
 
+## Debug
+
+Some times you may wish to run the tests without uploading them to Shoov if a regression is found. In those cases you can use `DEBUG=true` which will simply output the result using `console.log`. The foll command may look like this:
+
+```bash
+DEBUG=true PROVIDER_PREFIX=browserstack SELECTED_CAPS=chrome mocha
+```
+
 After a regression was found check your [Builds](https://app.shoov.io/#/builds) page, or go directly to the link indicated by the failing Mocha test.
 
 # Credits
