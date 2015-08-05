@@ -1,6 +1,6 @@
 {
   "name": "generator-shoov",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Shoov generator.",
   "license": "MIT",
   "main": "app/index.js",
