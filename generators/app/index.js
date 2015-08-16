@@ -119,6 +119,20 @@ module.exports = yeoman.generators.Base.extend({
         return done();
       }
 
+      // Check if brew is installed on Mac.
+      var homebrew = spawn('brew', ['--version']);
+      homebrew.stdout.on('data', function (data) {
+        if (!data) {
+          self.log(chalk.red('---------------------------'));
+          self.log(chalk.red('Homebrew is not installed on your machine'));
+          self.log(chalk.red('To install follow instructions in:'));
+          self.log(chalk.yellow('  http://brew.sh'));
+          self.log(chalk.red('---------------------------'));
+          opn('http://brew.sh/');
+        }
+        done();
+      });
+
       var graphicsmagickInstalled = false;
       var graphicsmagickInfo = spawn('brew', ['info', 'graphicsmagick']);
 
