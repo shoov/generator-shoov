@@ -10,7 +10,7 @@ var shoovWebdrivercss = require('shoov-webdrivercss');
 var capsConfig = {
   'chrome': {
     'browser' : 'Chrome',
-    'browser_version' : '42.0',
+    'browser_version' : '46.0',
     'os' : 'OS X',
     'os_version' : 'Yosemite',
     'resolution' : '1024x768'
